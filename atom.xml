@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://pluginszfat.github.io</id>
+    <title>Zfat</title>
+    <updated>2020-12-25T13:32:26.921Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://pluginszfat.github.io"/>
+    <link rel="self" href="https://pluginszfat.github.io/atom.xml"/>
+    <subtitle>imzfat</subtitle>
+    <logo>https://pluginszfat.github.io/images/avatar.png</logo>
+    <icon>https://pluginszfat.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2020, Zfat</rights>
+</feed>
