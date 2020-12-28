@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Conway's Game of Life</title>
+<title>生命游戏-zfat</title>
 <meta name="description" content="A JavaScript version of Conway's Game of Life, based on the Hashlife-algorithm.">
 <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/copy/life/life.css" type="text/css">
@@ -17,19 +17,19 @@
 <body>
 <div id="toolbar" style="display: none;">
 
-    <div class="button" id="about_button">About</div>
+    <div class="button" id="about_button">关于</div>
     <div class="menu" id="examples_menu">
-        <div id="pattern_button">Patterns</div>
+        <div id="pattern_button">画作</div>
     </div>
-    <div id="randomize_button" class="button">Randomize</div>
-    <div id="export_button" class="button">Export</div>
-    <div id="import_button" class="button">Import</div>
-    <div class="button" id="settings_button">Settings</div>
-    <div class="button" id="clear_button">Clear</div>
-    <div class="button" style="display: none" id="superstep_button">Superstep</div>
-    <div class="button" id="step_button">Step</div>
-    <div class="button" id="rewind_button">Rewind</div>
-    <div class="button" id="run_button">Run</div>
+    <div id="randomize_button" class="button">随机画板</div>
+    <div id="export_button" class="button">下载当前画作</div>
+    <div id="import_button" class="button">导入画作</div>
+    <div class="button" id="settings_button">配置</div>
+    <div class="button" id="clear_button">清除</div>
+    <div class="button" style="display: none" id="superstep_button">人类的一大步</div>
+    <div class="button" id="step_button">演化一步</div>
+    <div class="button" id="rewind_button">重置</div>
+    <div class="button" id="run_button">运行</div>
 
     <table id="controls">
         <tr>
@@ -99,19 +99,19 @@
             <br>
             <b>Controls:</b>
             <pre>
-        Left mouse          - Move around
-        Right mouse         - Create / Delete cells
-        Mouse wheel         - Zoom
+        左键         - 移动视野
+        右键         - 创造 / 删除 格子
+        鼠标滚轮         - 缩放
 
-        Arrow keys, HJKL    - Move around
-        +, -                - Zoom
-        Space               - One generation forward
-        Tab                 - Many generations forward
-        Enter               - Run/Pause
-        Backspace           - Rewind
-        ]                   - Faster
-        [                   - Slower
-        Escape              - Close Popups
+        4个箭头键，HJKL      - 移动视野
+        +, -                - 缩放
+        空格                - 单步演化
+        Tab                 - 进行n次演化
+        回车                - 开始/停止
+        退格                - 复原
+        ]                   - 加快速度()
+        [                   - 放慢速度
+        Escape              - 关闭弹出窗口
             </pre>
         </div>
         <br>
@@ -120,9 +120,9 @@
         <span class="button2" id="about_close" style="display: none">Ok</span>
     </div>
     <div id="randomize_dialog" style="display: none;">
-        <h2>Random Pattern</h2>
+        <h2>随机画板</h2>
         <div class="left">
-            Width
+            宽度
         </div>
         <div class="right">
             <input type="number" min="1" id="randomize_width" style="width: 60px">
@@ -130,7 +130,7 @@
         <br class="clear">
         <br>
         <div class="left">
-            Height
+            高度
         </div>
         <div class="right">
             <input type="number" min="1" id="randomize_height" style="width: 60px">
@@ -138,7 +138,7 @@
         <br class="clear">
         <br>
         <div class="left">
-            Density
+            密度
         </div>
         <div class="right">
             <input type="number" id="randomize_density" min="0" max="1" step="0.1" style="width: 60px">
@@ -147,25 +147,25 @@
         <br>
         <br>
         <br>
-        <span id="randomize_submit" class="button2">Randomize</span>
-        <span id="randomize_abort" class="button2">Abort</span>
+        <span id="randomize_submit" class="button2">开始随机</span>
+        <span id="randomize_abort" class="button2">取消</span>
     </div>
     <div id="import_dialog" style="display: none;">
-        <h2>Import Pattern</h2>
-        Supports RLE, Life 1.06, Plaintext
+        <h2>导入到画板</h2>
+        支持格式 RLE, Life 1.06, Plaintext
         <br>
         <br>
         <textarea placeholder="Paste pattern file here" id="import_text"></textarea>
         <br>
-        Or: <input type="file" id="import_file">
+       或者: <input type="file" id="import_file">
         <br>
         <br>
         <div id="import_info"></div>
         <br>
         <br>
         <br>
-        <span id="import_submit" class="button2">Import</span>
-        <span id="import_abort" class="button2">Abort</span>
+        <span id="import_submit" class="button2">导入</span>
+        <span id="import_abort" class="button2">取消</span>
     </div>
     <div id="alert" style="display: none;">
         <div id="alert_text">
@@ -175,29 +175,29 @@
             <div id="pattern_urls"></div>
             <br>
             <div id="pattern_file_container">
-                Pattern file: <a target="_blank" id="pattern_file_link" href=""></a>
+                画板文件选择: <a target="_blank" id="pattern_file_link" href=""></a>
             </div>
             <div id="pattern_link_container">
-                Link to view online:
+               来康康网上的:
                 <a id="pattern_link" target="_blank" href=""></a>
             </div>
         </div>
         <br>
         <br>
-        <span class="button2" id="alert_close">Ok</span>
+        <span class="button2" id="alert_close">好耶</span>
     </div>
     <div id="pattern_chooser" style="display: none;">
-        Source: <a href="http://www.conwaylife.com/wiki/Main_Page" target="_blank">www.conwaylife.com</a>. Thanks!
-        &mdash; <a href="examples/" target="_blank">List of all patterns</a>
+        资源: <a href="http://www.conwaylife.com/wiki/Main_Page" target="_blank">www.conwaylife.com</a>. Thanks!
+        &mdash; <a href="examples/" target="_blank">作品表</a>
         <div id="pattern_list"></div>
-        <span class="button2" id="pattern_close">Close</span>
+        <span class="button2" id="pattern_close">蒜了吧</span>
     </div>
     <div id="settings_dialog" style="display: none;">
-        <h2>Settings</h2>
+        <h2>配置</h2>
         <div class="left" id="select_rules">
-            Rule<br>
+            规则<br>
             <small>
-                Or pick one:
+                不妨选择一个预设:
                 <span class="link" data-rule="23/3">Conway</span>
                 <span class="link" data-rule="23/36">HighLife</span>
                 <span class="link" data-rule="125/36">2x2</span>
@@ -210,7 +210,7 @@
         <br class="clear">
         <br>
         <div class="left">
-            Maximum Frames per Second
+            帧率
         </div>
         <div class="right">
             <input type="number" min="1" id="max_fps" style="width: 60px">
@@ -218,8 +218,8 @@
         <br class="clear">
         <br>
         <div class="left">
-            Generation step<br>
-            <small>Only powers of 2 (automatically rounded)</small>
+            生成步骤<br>
+            <small>只有2的幂次（自动取整）</small>
         </div>
         <div class="right">
             <input type="number" step="any" id="gen_step" style="width: 60px">
@@ -227,7 +227,7 @@
         <br class="clear">
         <br>
         <div class="left">
-            Border width<br>
+           画框宽度<br>
             <small>0 .. 0.5</small>
         </div>
         <div class="right">
@@ -239,14 +239,13 @@
         <hr>
         <br>
         <br>
-        <span id="settings_submit" class="button2">Save</span>
-        <span id="settings_reset" class="button2">Reset</span>
-        <span id="settings_abort" class="button2">Abort</span>
+        <span id="settings_submit" class="button2">保存</span>
+        <span id="settings_reset" class="button2">重置</span>
+        <span id="settings_abort" class="button2">酸萝卜</span>
     </div>
     <div id="loading_popup" style="display: none; font-size: 16px">
         <div style="text-align: center">
-            <h2>Downloading pattern file</h2>
-            Please wait a second.<br><br>
+            <h2>年轻人啊😫，要有耐心<br><br>
             <img src="https://cdn.jsdelivr.net/gh/copy/life/pattern.gif" width="324" height="210" alt="Bi Gun">
         </div>
     </div>
