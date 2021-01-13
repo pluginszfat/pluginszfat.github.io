@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=no, target-densitydpi=device-dpi, viewport-fit=cover">
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"  />
+	<title>意见反馈</title>
+	
+	<style type="text/css">
+[v-cloak] {display: none;}
+html, body { position: relative; height: 100%;}
+body { background: #F0F0F0;; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; color:#000; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body,ul,li,p,span,div,a,img,section{ margin: 0; padding: 0; box-sizing: border-box; border:0; outline:0;}
+ul,li{ list-style: none;} 
+a{ text-decoration: none; }
+p{ text-indent:0;}
+.wait {width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 10; background-color: #fff; z-index: 99999 background-color: #eee; transition:opacity .3s linear;}
+.wait img {display: block; margin: 60% auto; width: 20%; height: auto;}
+.bgborder{background: #FFFFFF; border-top: 0.01rem solid #E1E1E1; border-bottom: 0.01rem solid #E1E1E1;}
+
+#app{  padding-top: 0.1px;}
+.routerlist{ padding-top: 0.34rem;}
+.myopinion-wrapper,.opinionlist-wrapper{ position: absolute; width: 100%; height: 100%; top: 0; left: 0; right: 0; bottom: 0; background: #F0F0F0;; padding-top: 0.34rem;}	
+.routeritem,.choosetype{ position: relative;
+	margin-bottom: 0.24rem;
+	padding: 0 0.32rem;
+	height: 1.2rem;
+	font-size: 0.34rem; color: #323232;
+	line-height: 1.2rem; 
+}	
+.tips96{ color: #969696;}
+.tips{ position: absolute; top: 0; right: 0.7rem; width: 2.1rem; height: 1.2rem; font-size: 0.3rem; text-align: right;}
+.arrow{ position: absolute; top: 0.47rem; right: 0.33rem; width: 0.13rem; height: 0.26rem; background-image: url(img/arrow.png); background-size: 100% 100%; }
+.opiniontextarea{ position: relative; padding: 0.25rem 0.32rem; height: 3.2rem; }
+.textcontainer{ height: 2.3rem; width: 100%; border: none; outline: none; font-size: 0.3rem; color: #323232;}
+
+.textcounter{ position: absolute;  bottom: 0.25rem; right: 0.32rem; font-size: 0.3rem; color: #C8C8C8;}
+.textcounter span{ color: #FF5252;}
+.btnwrapper{ position: absolute; bottom: 0.32rem; width: 100%; height: 1.04rem;padding: 0 0.32rem; }
+.btn{ background: #c8c8c8; border-radius: 0.08rem; font-size: 0.34rem; line-height: 1.04rem; text-align: center; color: #FFFFFF;}
+.btn.able{ background: #FF5252; }
+.maskwrapper{ position: absolute; top: 0; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.75);}
+.maskinner{ width: 5.8rem; background: #ffffff; margin: 1.9rem auto 0; border-radius: 0.08rem;}
+.closebtn{ position: absolute; top: 1.2rem; right: 0.85rem; width: 0.38rem; height: 0.38rem; background-image: url(img/close.png);  background-size: 100% 100%;}   
+.masktitle{ margin: 0 auto; text-align: center; font-size: 0.36rem; font-weight: 600; color: #323232; line-height: 0.36rem; padding: 0.32rem 0 0.48rem;}  
+.typelist{ padding: 0 0.46rem;}  
+.typename{ display: inline-block; margin: 0 0.4rem 0.24rem 0; width: 2.2rem; height: 0.72rem; text-align: center; font-size: 0.3rem; color: #323232; line-height: 0.72rem; border: 0.01rem solid  #C8C8C8; border-radius: 0.08rem;}    
+.typename:nth-child(2n){ margin-right: 0; }
+.typename.chosen{ background: rgba(255,82,82,0.15); border: 0.01rem solid #FF5252; border-radius: 0.08rem; color: #FF5252;}
+.typebtn{ margin-top: 0.24rem; text-align: center; height: 0.88rem; font-size: 0.36rem; line-height: 0.88rem; border-top: 0.01rem solid  #E1E1E1; color: #969696;}
+.typebtn.able{ color: #1E82E6;}
+.opinionitem{ margin-bottom: 0.24rem; padding: 0.24rem 0.32rem;}	
+.opiniontext .opiniontype{ margin-right: 0.16rem; font-size: 0.34rem; color: #969696; line-height: 0.34rem; }
+.opiniondate{font-size: 0.26rem; color: #969696; line-height: 0.3rem;}
+.opiniondetail{ margin-top:0.32rem; font-size: 0.3rem; color: #323232; /*line-height: 0.3rem;*/}	
+.kefu{ margin: 0.12rem 0 0.04rem;} 
+.kefu p{ display: inline-block; vertical-align: middle;}
+.kefu span{ display: inline-block; vertical-align: middle;}
+.kefutagsbg{ position: relative; width: 4.9rem; display: inline-block;}
+.kefutagsbg .triangle{ margin-left: -0.09rem; border-right: 0.09rem solid #E8F2FC; border-left: 0.09rem solid transparent; border-top: 0.09rem solid transparent; border-bottom: 0.09rem solid transparent;}
+.kefutagsbg .kefutags{ margin-left: -0.05rem; width: 4.8rem; padding: 0.19rem 0.32rem; line-height: 0.42rem; text-align: justify; font-size: 0.3rem; color: #1E82E6;  background: #E8F2FC; border-radius: 0.08rem; }
+.kefu .thumbicon{ margin-left: 0.24rem; width: 0.64rem; height: 0.64rem; background-size: 100% 100%;}
+.kefu .thumbup{ background-image: url(img/thumbup.png);}
+.kefu .thumbup.active{ background-image: url(img/thumbup-active.png);}
+.kefu .thumbdown{ background-image: url(img/thumbdown.png);}
+.kefu .thumbdown.active{ background-image: url(img/thumbdown-active.png);}
+.nolist{width: 2.94rem; height: 3.07rem; margin:3.28rem auto 0; background-image: url(img/nolist.png); background-size: 100% 100%; }
+
+.toastmsg{ position: fixed; bottom: 35%; left: 10%; width: 80%; height: 40px; line-height: 40px; background: rgba(0,0,0,0.5); color: #fff; z-index: 30; text-align: center; border-radius: 20px;font-size: 18px;}
+.slide-up-fade-enter-active { transition: all .3s ease; }
+.slide-up-fade-leave-active { transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0); }
+.slide-up-fade-enter , .slide-up-fade-leave-to { transform: translateY(100px); opacity: 0; }
+
+	</style>
+</head>
+<body>
+	<!--<div class="wait"><img src="https://i1.yongche.name/media/g1/M04/1F/04/rBEARFrfAWyIZnReAAAG-2B8lnYAAML8AP_-K8AAAdR727.gif"></div>-->
+	<div id="app">
+		<section class="routerlist">
+			<router-link to="/myopinion"><p class="routeritem bgborder">意见反馈 <span class="arrow"></span></p></router-link>
+    		<router-link to="/opinionlist"><p class="routeritem bgborder">反馈记录<span class="arrow"></span></p></router-link>
+		</section>
+		<router-view></router-view>
+		<transition name="slide-up-fade">
+			<div class="toastmsg" v-show="showToast" v-html="toastMsg"></div>
+		</transition>
+	</div>
+	<template id="myopinion">
+		<div class="myopinion-wrapper">
+			<p class="choosetype bgborder" @click="showTypelist">
+				<span>意见类型</span>
+				<span class="tips tips96" v-show="!typeid">请选择意见类型</span>
+				<span class="tips" v-show="typeid">{{type}}</span>
+				<span class="arrow"></span>
+			</p>
+			<div class="opiniontextarea bgborder">
+				<textarea class="textcontainer" placeholder="请输入您的宝贵意见，意见内容尽量具体，以便我们更好的为您服务，谢谢！" v-model="opiniontext"></textarea>
+				<div class="textcounter"><span>{{counter}}</span> /300</div>
+			</div>
+			<div class="btnwrapper"><div class="btn" :class="{'able':ablesubmit}" @click="submit">提交</div></div>
+			<div class="maskwrapper" v-if="isShow">
+				<div class="closebtn" @click="closeTypelist"></div>
+				<div class="maskinner">
+					<p class="masktitle">请选择反馈类型</p>
+					<ul class="typelist" v-if="typesArr.length">
+						<li class="typename" :class="{'chosen':activeidx===idx}" @click="chooseType(idx)" v-for="(item,idx) in typesArr">{{item.content}}</li>
+					</ul>
+					<p class="typebtn" :class="{'able':activeidx!==''}" @click="sureToChoose">确定</p>
+				</div>
+			</div>
+		</div>
+	</template>
+	<template id="opinionlist">
+		<div class="opinionlist-wrapper">
+			<ul v-if="opinionlistArr.length">
+				<li class="opinionitem bgborder" v-for="(item,idx) in opinionlistArr">
+					<p class="opiniontext">
+						<span class="opiniontype">{{item.reply_type_name}}</span>
+						<span class="opiniondate">{{item.create_time}}</span>
+					</p>
+					<p class="opiniondetail">{{item.content}}</p>
+					<div class="kefu" v-if="item.status==2">
+						<div class="kefutagsbg">
+							<span class="triangle"></span>
+							<span class="kefutags">{{item.answer}}</span>
+						</div>
+						<span class="thumbicon thumbup" :class="{'active':item.is_useful==1}" @click="useful(idx,item.feedback_id,1)"></span>
+						<span class="thumbicon thumbdown" :class="{'active':item.is_useful==-1}" @click="useful(idx,item.feedback_id,-1)"></span>
+					</div>
+				</li>
+			</ul>
+			<div class="nolist"  v-if="!opinionlistArr.length"></div>
+		</div>
+	</template>
+	<script src="../../config.js"></script>
+<!--flexible.js-->
+<script src="https://i1.yongche.name/media/g4/M04/00/21/rBEDBVsaXZOIZtJ1AAAPg6xQb3EAAAM_gBNCnkAAA-b7128.js"></script>
+<script type="text/javascript" src='https://cdn.bootcss.com/vue/2.5.16/vue.min.js'></script>	
+<script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>	
+<script>
+var myopinion = {
+	path:'/myopinion',
+	name:'myopinion', 
+	component:{
+		template:'#myopinion',
+		data:function(){
+			return {
+				isShow:false, //是否展示意见类型弹窗
+				typesArr:[], //意见类型数组
+				chosenidx:-1, //已经选择de意见类型de 索引，默认值-1：没有选择过
+				activeidx:'', //当前选中的意见类型，用来控制选中状态
+				type:'', //意见类型名称
+				typeid:'',  //意见类型id
+				opiniontext:'', //输入的具体意见内容
+				urlDomain:'',
+				driverCode:''
+			}
+		},
+		computed:{
+			counter:function(){  //已输入意见的字数
+				return this.opiniontext.length;
+			},
+			ablesubmit:function(){ //控制提交按钮的状态
+				if(this.chosenidx !== -1 && this.opiniontext !== ''){
+					return true
+				}
+				return false
+			}
+		},
+		mounted:function(){
+			this.urlDomain = this.$parent.urlDomain;
+			this.driverCode = this.$parent.driverCode;
+			this.getTypelist();
+		},
+		methods:{
+			getTypelist:function(){//获取意见类型列表
+				var vm = this;
+				$.ajax({
+		  			type:"get",
+		  			url:vm.urlDomain+"/Driver/GetFeedbackTypeList",
+		  			data:{'driver_code':vm.driverCode},
+	                success:function(data) {
+	                	if(data.code == 200){
+	                		vm.typesArr = data.msg.result;
+	                	}
+	                },
+	                error:function(err){
+	                	console.log(err);
+	                    vm.$parent.showToastFn('GetFeedbackTypeList-error');
+	                }
+		  		});
+			},
+			showTypelist:function(){ //展示意见类型列表弹窗
+				this.isShow = true;
+			},
+			closeTypelist:function(){ //关闭意见类型列表弹窗
+				this.isShow = false;
+				if(this.chosenidx == -1){
+					this.activeidx = ''; //没有选择过意见类型
+				}else{
+					this.activeidx = this.chosenidx; //重置为上次选择的类型的索引
+				}
+			},
+			chooseType:function(idx){ //点击意见类型
+				this.activeidx = idx;
+			},
+			sureToChoose:function(){ //确认选择已点击的类型
+				if(this.activeidx === ''){ return}  //没有选择类型，不能点击确认
+				this.isShow = false;
+				this.type = this.typesArr[this.activeidx].content;
+				this.typeid = this.typesArr[this.activeidx].reply_type;
+				this.chosenidx = this.activeidx; //将“当前索引”赋值给“已选择类型索引”
+			},
+			submit:function(){  //提交意见
+				if(this.chosenidx === -1 || this.opiniontext === ''){  return}
+				var vm = this;
+				$.ajax({
+		  			type:"POST",
+		  			url:vm.urlDomain+"/Driver/FeedBack",
+		  			data:{'driver_code':vm.driverCode,'content':vm.opiniontext,'reply_type':vm.typeid},
+	                success:function(data) {
+	                	if(data.code==200 && data.msg.ret_code==200){ //提交成功
+	                		alert('提交成功')  //TODO
+	                		//window.location.href='yidaodriver://closeWindow';
+	                	}
+	                },
+	                error:function(err){
+	                	console.log(err);
+	                    vm.$parent.showToastFn('FeedBack');
+	                }
+		  		});
+			}
+		},
+		watch:{
+			opiniontext:function(newVal,oldVel){ //控制输入字数
+				var newVal = newVal.replace(/\s+/g,"");  //去除所有空格:   
+				this.opiniontext = newVal;
+				if(newVal.length>300){
+	  				this.opiniontext = newVal.substr(0,300);
+	  			}
+			}
+		}
+	}
+}
+	
+var opinionlist = {
+	path:'/opinionlist',
+	name:'opinionlist', 
+	component:{
+		template:'#opinionlist',
+		data:function(){
+			return {
+				urlDomain:'',
+				driverCode:'',
+				opinionlistArr:[]
+			}
+		},
+		mounted:function(){
+			this.urlDomain = this.$parent.urlDomain;
+			this.driverCode = this.$parent.driverCode;
+			this.$parent.modifyTitle('反馈记录'); //修改标题
+			this.getOpinionlist();
+		},
+		methods:{
+			getOpinionlist:function(){ //获取反馈记录列表
+				var vm = this;
+				/*$.ajax({
+		  			type:"get",
+		  			url:vm.urlDomain+"/Driver/FeedBack",
+		  			data:{'driver_code':vm.driverCode},
+	                success:function(data) {
+	                	if(data.code==200){
+	                		vm.opinionlistArr = data.msg;
+	                		vm.dealData(vm.opinionlistArr);
+	                	}
+	                },
+	                error:function(err){
+	                	console.log(err);
+	                    vm.$parent.showToastFn('FeedBack');
+	                }
+		  		});*/
+				this.opinionlistArr = [
+					{feedback_id:1015,reply_type:1,reply_type_name:'恶意乘客',create_time:'2018-07-19   11:18:10',
+					content:'有恶意乘客我要投诉有恶意乘客我要投诉有恶意乘客我要投诉有恶意乘客我要投诉',
+					status:2,answer:'我是客服正在处理',is_useful:0},
+					
+					{feedback_id:1016,reply_type:1,reply_type_name:'订单相关',create_time:'2018-07-19   11:18:10',
+					content:'接不到订单',
+					status:2,answer:'您的意见已收到，我们会继续努力，到热门区域会接到更多订单',is_useful:1},
+					
+					{feedback_id:1017,reply_type:1,reply_type_name:'恶意乘客',create_time:'2018-07-19   11:18:10',
+					content:'有恶意乘客我要投诉',
+					status:2,answer:'我们会联系该单乘客，确认事实',is_useful:-1},
+					
+					{feedback_id:1018,reply_type:1,reply_type_name:'恶意乘客',create_time:'2018-07-19   11:18:10',
+					content:'有恶意乘客我要投诉',
+					status:0,answer:'我是客服正在处理',is_useful:0},
+					
+					{feedback_id:1019,reply_type:1,reply_type_name:'订单相关',create_time:'2018-07-19   11:18:10',
+					content:'接不到订单接不到订单接不到订单接不到订单接不到订单接不到订单接不到订单接不到订单',
+					status:2,answer:'您的意见已收到，我们会继续努力，到热门区域会接到更多订单',is_useful:1},
+					
+					{feedback_id:1020,reply_type:1,reply_type_name:'恶意乘客',create_time:'2018-07-19   11:18:10',
+					content:'有恶意乘客我要投诉',
+					status:2,answer:'我们会联系该单乘客，确认事实',is_useful:-1},
+					
+					{feedback_id:1021,reply_type:1,reply_type_name:'恶意乘客',create_time:'2018-07-19   11:18:10',
+					content:'有恶意乘客我要投诉',
+					status:0,answer:'我是客服正在处理',is_useful:0},
+					
+					{feedback_id:1022,reply_type:1,reply_type_name:'订单相关',create_time:'2018-07-19   11:18:10',
+					content:'接不到订单',
+					status:2,answer:'您的意见已收到，我们会继续努力，到热门区域会接到更多订单',is_useful:1},
+					
+					{feedback_id:1023,reply_type:1,reply_type_name:'恶意乘客',create_time:'2018-07-19   11:18:10',
+					content:'有恶意乘客我要投诉',
+					status:2,answer:'我们会联系该单乘客，确认事实',is_useful:-1}
+				]
+			},
+			dealData:function(arr){
+				var vm = this;
+				arr.forEach(function(ele){
+					ele.create_time = vm.timeFormater(ele.create_time);
+				})
+			},
+			useful:function(idx,feedback_id,is_useful){
+				//console.log(idx,feedback_id,is_useful)
+				var vm = this;
+				$.ajax({
+		  			type:"post",
+		  			url:vm.urlDomain+"/Driver/IsFeedbackUseful ",
+		  			data:{'driver_code':vm.driverCode,'feedback_id':feedback_id,'is_useful':is_useful},
+	                success:function(data) {
+	                	if(data.code==200 && data.msg.ret_code == 200){
+	                		vm.opinionlistArr[idx].is_useful = is_useful;
+	                	}else{
+	                		vm.$parent.showToastFn('网络错误');
+	                	}
+	                },
+	                error:function(err){
+	                	console.log(err);
+	                    vm.$parent.showToastFn('IsFeedbackUseful');
+	                }
+		  		});
+			},
+			timeFormater:function(time){
+				var now = new Date(time*1000);
+				var year = now.getFullYear(),
+			　　month = this.pad2( now.getMonth() + 1 ),
+			　　date = this.pad2( now.getDate() ),
+			　　hour = this.pad2( now.getHours() ),
+			　　minute = this.pad2( now.getMinutes() ),
+			　　second = this.pad2( now.getSeconds() );
+			　　return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
+			},
+			pad2:function(num){
+				return num>9 ? num : '0'+ num;
+			}
+		}
+	}
+}
+
+var router = new VueRouter({routes:[myopinion,opinionlist]}) ;
+new Vue({
+  	el: '#app',
+	data:{
+		urlDomain:config.app_api_host,
+		driverCode:'i4w5r5tsyplc8owc',
+		showToast:false,  //吐司提示框的展示与否  false-不展示，true-展示
+	  	toastMsg:'' //吐司提示信息
+	},
+	mounted: function(){
+		this.driverCode = this.getDriverCode('drivercode');
+		//console.log(this.driverCode)
+		//console.log('cookie==='+this.getCookie('invite_code'))
+	},
+	methods:{
+		modifyTitle:function(title){
+			document.title = title;
+			var isiOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); 
+	        if(isiOS){
+	            window.location.href='yidaodriver://refreshTitle?title='+title;
+	        }
+		},
+		isIpX:function(){
+			var u = navigator.userAgent;
+		    var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+		    if (isIOS) {        
+		        if (screen.height == 812 && screen.width == 375){
+		            return true;
+		        }else{
+		            return false
+		        } 
+		    }
+		},
+		showToastFn:function(msg){  //toast提示
+			var vm = this;
+			vm.showToast = true;
+     		vm.toastMsg = msg;
+     		setTimeout(function(){
+     			vm.showToast = false;
+     		},2000)
+		},
+		getDriverCode:function(searchName){
+			var name,value;
+		   	var str=location.href; //取得整个地址栏
+		   	var num=str.indexOf("?")
+		   	str=str.substr(num+1); //取得所有参数   stringvar.substr(start [, length ]
+			var num2=str.indexOf("#/")
+		   	str=str.substr(0,num2); //取得所有参数   stringvar.substr(start [, length ]
+		   	var arr=str.split("&"); //各个参数放到数组里
+		    //console.log(arr)
+		   	for(var i=0;i < arr.length;i++){
+		        num=arr[i].indexOf("=");
+		        if(num>0){
+		             name=arr[i].substring(0,num);
+		             value=arr[i].substr(num+1);
+		             this[name]=value;
+		             if(searchName==name){
+			        	return arr[i].substr(num+1);
+			        }
+		        }
+		   	}
+		},
+		getCookie:function (name){//读取cookie
+			var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+			if(arr=document.cookie.match(reg)){
+				return unescape(arr[2]);
+			}else{
+				return null;
+			}
+		}
+  	},
+	router: router
+})
+			
+		</script>
+</body>
+</html>
