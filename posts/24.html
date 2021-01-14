@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>24点</title>
+		<!-- 引入vue.js -->
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<!-- 引入样式 -->
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+		<!-- 引入组件库 -->
+		<script src="https://lib.baomitu.com/element-ui/2.13.2/index.js"></script>
+		<!-- <script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="https://cdn.bootcss.com/canvas-nest.js/2.0.4/canvas-nest.js"></script> -->
+	</head>
+	<body>
+		<div id="app" class="app">
+		    <el-container>
+				<el-header>
+					<h1>24点</h1> 
+				</el-header>
+				<el-main>
+					<div class="main">
+						<!-- 计算公式 -->
+						<el-card shadow="always">
+						      {{ result }}
+						</el-card>
+						<!-- 随机数字 -->
+						<el-row :gutter="20">
+						  <el-col :span="12" v-for="num,index in randomNum">
+							  <div class="card-sep">
+								  <el-card class="card-sep" shadow="always" @click.native="getVal(num,index)">
+								    {{ num }}
+								  </el-card>
+							  </div>
+						  </el-col>
+						  <!-- <el-col :span="12">
+						    <el-card shadow="hover">
+						      3
+						    </el-card>
+						  </el-col>
+						</el-row>
+						<el-row :gutter="20">
+						  <el-col :span="12">
+						    <el-card shadow="always">
+						      8
+						    </el-card>
+						  </el-col>
+						  <el-col :span="12">
+						    <el-card shadow="hover">
+						      9
+						    </el-card>
+						  </el-col> -->
+						</el-row>
+						<!-- 运算符选择 -->
+						<el-row class="h-sep">
+						  <el-col :span="4"><el-button type="primary" plain icon="el-icon-plus" @click="add">加</el-button></el-col>
+						  <el-col :span="4"><el-button type="primary" plain icon="el-icon-minus" @click='inc'>减</el-button></el-col>
+						  <el-col :span="4"><el-button type="primary" plain icon="el-icon-close" @click='mul'>乘</el-button></el-col>
+						  <el-col :span="4"><el-button type="primary" plain icon="" @click='div'>/&nbsp;&nbsp;除</el-button></el-col>
+						  <el-col :span="4"><el-button type="primary" plain icon="el-icon-arrow-left" @click='left'>括</el-button></el-col>
+						  <el-col :span="4"><el-button type="primary" plain icon="el-icon-arrow-right" @click='right'>号</el-button></el-col>
+						</el-row>
+						<el-row :gutter="20" class="footBtn">
+							<el-col :span="4"><el-button type="primary" plain icon="el-icon-refresh-right" @click='clean'>清除</el-button></el-col>
+							<el-col :span="4"><el-button type="primary" plain icon="el-icon-success" @click='confirm'>确定</el-button></el-col>
+							<el-col :span="4"><el-button type="primary" plain icon="el-icon-refresh" @click='resert'>换题</el-button></el-col>
+						</el-row>
+					</div>
+					
+				</el-main>
+		    </el-container>
+		</div>
+		<div id="cas" style="position: absolute;width: 200px;height: 200px; left: 200px; z-index: 99999;"></div>
+		<script src="https://cdn.bootcss.com/canvas-nest.js/2.0.4/canvas-nest.js" type="text/javascript" color="255,0,0" opacity="0.5" count="200" ></script>
+	</body>
+	<script type="text/javascript">
+		var app = new Vue({
+			el:'#app', //选择器
+			data:{
+				msg:'hello',
+				randomNum:[],
+				result:'',
+				tempResult:'',
+				flag0:false,
+				flag1:false,
+				flag2:false,
+				flag3:false
+			},
+			mounted() {
+				this.getRandomNum();
+			},
+			methods:{
+				getRandomNum() {
+					this.randomNum = [];
+					for (var i = 0; i < 4; i++) {
+						// 生成1-9的随机数
+						this.randomNum.push(Math.floor(Math.random(9)*10+1));
+					}
+				},
+				getVal(num,index) {
+					let selNum = num;
+					this.result += num;
+					switch(index) {
+						case 0: 
+							this.flag0 = !this.flag0;
+							break;
+						case 1: 
+							this.flag1 = !this.flag1;
+							break;
+						case 2: 
+							this.flag2 = !this.flag2;
+							break;
+						case 3: 
+							this.flag3 = !this.flag3;
+							break;
+					}
+				},
+				// 重置flag标识
+				resertFlag() {
+					this.flag0 = false;
+					this.flag1 = false;
+					this.flag2 = false;
+					this.flag3 = false;
+				},
+				add() {
+					this.result += '+';
+				},
+				inc() {
+					this.result += '-';
+				},
+				mul() {
+					this.result += '*';
+				},
+				div() {
+					this.result += '/';
+				},
+				left() {
+					this.result += '(';
+				},
+				right() {
+					this.result += ')';
+				},
+				clean() {
+					this.result = '';
+					this.resertFlag();
+				},
+				confirm() {
+					try{
+						console.log('flag0',this.flag0);
+						console.log('flag1',this.flag1);
+						console.log('flag2',this.flag2);
+						console.log('flag3',this.flag3);
+						var flag = this.flag0 && this.flag1 && this.flag2 && this.flag3;
+						console.log('res:',this.result);
+						if (flag) {
+							// 计算结果：直接将字符串转成js语句执行, 也可以用队列来实现
+							this.tempResult = eval(this.result);
+							if (this.tempResult === 24) {
+								this.$message.success('计算正确！');
+
+								this.result = '';
+								this.getRandomNum();
+							} else{
+								this.$message.error('计算错误！');
+								this.result = '';
+								this.resertFlag();
+							}
+						} 
+						else {
+							this.$message.error('每个数字仅可使用1次！');
+						}
+						
+					}
+					catch(err) {
+						var jifen;
+jifen = jifen + 1;
+$message.success(jifen);
+					}
+					
+				},
+				resert() {
+					this.getRandomNum();
+					this.resertFlag();
+					this.result = '';
+				}
+			},
+			
+		}); 
+		
+	</script>
+	
+	<style type="text/css">
+
+		html, body, #app{
+			text-align: center;
+		    height:100%;
+		    margin:0;
+		    padding:0;
+		}
+		.el-container {
+			height: 100%;
+		}
+		.main {
+			width: 40%;
+			margin-left: 30%;
+		}
+		.el-row {
+			margin-top: 2.5rem;
+		}
+		.el-card__body{
+			height: 3.75rem;
+			font-size: xx-large;
+			line-height: 3.75rem;
+		}
+		.footBtn{
+			margin-left: 0 !important;
+		}
+		.card-sep{
+			margin-bottom: 1.25rem;
+		}
+		.h-sep {
+			margin-top: 1.375rem;
+		}
+		
+	</style>
+</html>
