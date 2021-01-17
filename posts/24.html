@@ -72,7 +72,15 @@
 		<div id="cas" style="position: absolute;width: 200px;height: 200px; left: 200px; z-index: 99999;"></div>
 		<script src="https://cdn.bootcss.com/canvas-nest.js/2.0.4/canvas-nest.js" type="text/javascript" color="255,0,0" opacity="0.5" count="200" ></script>
 	</body>
+	<script>
+		function displayDate(){
+			document.getElementById("demo").innerHTML='您当前分数为'+jf;
+		}
+		</script>
+	<p id="demo">分数显示器</p>
+    <button type="button" onclick="displayDate()">显示分数</button>
 	<script type="text/javascript">
+	var jf = 0;
 		var app = new Vue({
 			el:'#app', //选择器
 			data:{
@@ -155,25 +163,29 @@
 							// 计算结果：直接将字符串转成js语句执行, 也可以用队列来实现
 							this.tempResult = eval(this.result);
 							if (this.tempResult === 24) {
-								this.$message.success('计算正确！');
-
-								this.result = '';
+								this.$message.success('计算正确！加一分');
+								stop(100);
+                    
+					jf = jf + 1;            
+                    window.alert('您当前积分是'+jf);
+					this.result = '';
 								this.getRandomNum();
 							} else{
-								this.$message.error('计算错误！');
+								this.$message.error('计算错误！扣一分');
 								this.result = '';
+								jf = jf - 1;            
+                    window.alert('您当前积分是'+jf);
 								this.resertFlag();
 							}
 						} 
 						else {
-							this.$message.error('每个数字仅可使用1次！');
+							this.$message.error('每个数字仅可使用1次！扣一分');
+							jf = jf - 1;            
+                    window.alert('您当前积分是'+jf);
 						}
 						
 					}
 					catch(err) {
-						var jifen;
-jifen = jifen + 1;
-$message.success(jifen);
 					}
 					
 				},
