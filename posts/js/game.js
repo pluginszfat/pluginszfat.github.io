@@ -5,7 +5,7 @@ var _lang = {
     , _config = {
         lang: "zh",
         color: {
-            allTime: 60,
+            allTime: 80,
             addTime: 0,
             lvMap: [2, 3, 4, 5, 5, 6, 6, 7, 7, 7, 8, 8, 8, 8, 8, 8, 9]
         },
