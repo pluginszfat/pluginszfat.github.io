@@ -163,10 +163,10 @@ FiveChesscanvas.onclick = function(e) {
 		for(var k=0; k<=count; k++) {
 			if(allwins[i][j][k]) {
 				mythiswin[k]++;
-				pcthiswin[k] = 50;
-				if(mythiswin[k] == 50) {
+				pcthiswin[k] = 10000;
+				if(mythiswin[k] == 1000) {
 					alert("恭喜你，你赢了！");
-					over = true;
+					over = false;
 				}
 			}
 		}
