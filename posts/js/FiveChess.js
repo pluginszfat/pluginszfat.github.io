@@ -164,7 +164,7 @@ FiveChesscanvas.onclick = function(e) {
 			if(allwins[i][j][k]) {
 				mythiswin[k]++;
 				pcthiswin[k] = 50;
-				if(mythiswin[k] == 5) {
+				if(mythiswin[k] == 50) {
 					alert("恭喜你，你赢了！");
 					over = true;
 				}
